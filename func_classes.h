@@ -3,7 +3,9 @@
 
 #include <QVector>
 #include <QDebug>
+#include <QPoint>
 
+/*
 //template<typename T>
 class Point
 {
@@ -14,7 +16,7 @@ public:
 
     //T x, y;
     int x, y;
-};
+};*/
 
 
 enum class AreaType {
@@ -29,10 +31,10 @@ class RestrictedArea
 public:
     RestrictedArea() = delete;
     RestrictedArea(AreaType t) : type(t) {}
-    RestrictedArea(Point p, float r);
+    RestrictedArea(QPoint p, float r);
 
-    QVector<Point> getPoints();
-    void addPoint(Point p);
+    QVector<QPoint> getPoints();
+    void addPoint(QPoint p);
     void delPoint(int n); //coming soon
 
     bool isIntersected(); //coming soon
@@ -48,7 +50,7 @@ private:
     void writeInDebugPolygon();
 
     AreaType type;
-    QVector<Point> points;
+    QVector<QPoint> points;
     float radius;
 };
 

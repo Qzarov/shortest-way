@@ -87,7 +87,7 @@ void ShortestWay::on_add_circle_Button_clicked()
     int y = ui->y_center_lineEdit->text().toInt();
     float r = ui->r_center_lineEdit->text().toFloat();
 
-    RestrictedArea new_area(Point(x, y), r);
+    RestrictedArea new_area(QPoint(x, y), r);
     areas.push_back(new_area);
     new_area.writeInDebug();
     new_area.print();
@@ -100,7 +100,7 @@ void ShortestWay::on_add_point_Button_clicked()
     int x = ui->x_newP_lineEdit->text().toInt();
     int y = ui->y_newP_lineEdit->text().toInt();
 
-    Point new_p(x, y);
+    QPoint new_p(x, y);
 
     bool new_polyg = true;
 
@@ -129,8 +129,8 @@ void ShortestWay::on_add_Polygon_Button_clicked()
 
 void ShortestWay::on_paint_Button_clicked()
 {
-    //window = new Graphics(&areas, this);
-    window = new Graphics(this);
+    window = new Graphics(areas, this);
+    //window = new Graphics(this);
     window->show();
 
     int x_bound_left = ui->x_l_lineEdit->text().toInt();

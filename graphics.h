@@ -22,8 +22,8 @@ class Graphics : public QDialog
     Q_OBJECT
 
 public:
-    //Graphics(QVector<RestrictedArea>* ar, QWidget *parent = nullptr);
-    Graphics(QWidget *parent = nullptr);
+    Graphics(QVector<RestrictedArea> ar, QWidget *parent = nullptr);
+    //Graphics(QWidget *parent = nullptr);
     ~Graphics();
 
     void setBoundaries(int x_l, int x_r, int y_l, int y_u);
@@ -34,7 +34,7 @@ public:
 private:
     Ui::Graphics *ui;
 
-    //QVector<RestrictedArea>* areas;
+    QVector<RestrictedArea> areas;
 
     int x_bound_left, x_bound_right;
     int y_bound_lower, y_bound_upper;

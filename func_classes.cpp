@@ -2,19 +2,19 @@
 
 //RestrictedArea::RestrictedArea(){}
 
-void RestrictedArea::addPoint(Point p)
+void RestrictedArea::addPoint(QPoint p)
 {
     points.push_back(p);
 }
 
 
-QVector<Point> RestrictedArea::getPoints()
+QVector<QPoint> RestrictedArea::getPoints()
 {
     return points;
 }
 
 
-RestrictedArea::RestrictedArea(Point p, float r)
+RestrictedArea::RestrictedArea(QPoint p, float r)
 {
     type = AreaType::Circle;
     points.push_back(p);
@@ -33,14 +33,14 @@ void RestrictedArea::setType(AreaType t) { type = t;}
 
 void RestrictedArea::writeInDebugCircle()
 {
-    qDebug() << "center: x:" << points[0].x << ", y: " << points[0].y
+    qDebug() << "center: x:" << points[0].rx() << ", y: " << points[0].ry()
              << ", r: " << radius;
 }
 
 void RestrictedArea::writeInDebugPolygon()
 {
     for (int i=0; i < points.size(); ++i){
-        qDebug() << i << "point, x: " << points[i].x << ", y: " << points[i].y;
+        qDebug() << i << "point, x: " << points[i].rx() << ", y: " << points[i].ry();
     }
 }
 

@@ -1,11 +1,13 @@
 #include "graphics.h"
 #include "ui_graphics.h"
 
-//Graphics::Graphics(QVector<RestrictedArea>* ar, QWidget *parent) :
-Graphics::Graphics(QWidget *parent) :
+Graphics::Graphics(QVector<RestrictedArea> ar, QWidget *parent) :
+//Graphics::Graphics(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Graphics)
 {
+    areas = ar;
+
     ui->setupUi(this);
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
@@ -37,7 +39,17 @@ void Graphics::setDimension(int x_d, int y_d)
 
 void Graphics::printAreas()
 {
-    //for (int i = 0; i < areas->size(); ++i) {
-        //areas[i];
-    //}
+    for (int i = 0; i < areas.size(); ++i) {
+        if (areas[i].getType() == AreaType::Circle) {
+
+
+            //scene->addEllipse();
+        } else if (areas[i].getType() == AreaType::Polygon) {
+            QPolygon pol = QPolygon(areas[i].getPoints());
+
+            //scene->addPolygon();
+        }
+
+
+    }
 }
