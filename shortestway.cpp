@@ -85,7 +85,7 @@ void ShortestWay::on_add_circle_Button_clicked()
 {
     int x = ui->x_center_lineEdit->text().toInt();
     int y = ui->y_center_lineEdit->text().toInt();
-    float r = ui->r_center_lineEdit->text().toFloat();
+    double r = ui->r_center_lineEdit->text().toFloat();
 
     RestrictedArea new_area(QPoint(x, y), r);
     areas.push_back(new_area);

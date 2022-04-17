@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsItemGroup>
 #include <QGraphicsItem>
+#include <QGraphicsEllipseItem>
 #include <QPen>
 #include <QBrush>
 #include <QGridLayout>
@@ -32,6 +33,8 @@ public:
     void printAreas();
 
 private:
+    void drawGrid();
+
     Ui::Graphics *ui;
 
     QVector<RestrictedArea> areas;

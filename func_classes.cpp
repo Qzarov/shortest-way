@@ -56,3 +56,9 @@ void RestrictedArea::writeInDebug()
         writeInDebugPolygon();
     }
 }
+
+
+double RestrictedArea::getRadius()
+{
+    return radius;
+}
