@@ -29,15 +29,19 @@ public:
 
     void setBoundaries(int x_l, int x_r, int y_l, int y_u);
     void setDimension(int x_d, int y_d);
+    void setWayPoints(QPoint s, QPoint f);
 
-    void printAreas();
+    void drawAll();
 
 private:
+    void configTools();
     void drawGrid();
+    void drawWayPoints();
+    void drawAreas();
 
     Ui::Graphics *ui;
-
     QVector<RestrictedArea> areas;
+    QPoint startP, finishP;
 
     int x_bound_left, x_bound_right;
     int y_bound_lower, y_bound_upper;
@@ -45,9 +49,11 @@ private:
 
     QGraphicsScene *scene;
 
-    QPen *pen_black;
-    QPen *pen_red;
-    QPen *pen_green;
+    QPen pen_black;
+    QPen pen_red;
+    QPen pen_green;
+
+    QBrush brush;
 
 };
 

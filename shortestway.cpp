@@ -129,9 +129,7 @@ void ShortestWay::on_add_Polygon_Button_clicked()
 
 void ShortestWay::on_paint_Button_clicked()
 {
-    window = new Graphics(areas, this);
-    //window = new Graphics(this);
-    window->show();
+    window = new Graphics(areas, this);   
 
     int x_bound_left = ui->x_l_lineEdit->text().toInt();
     int x_bound_right = ui->x_r_lineEdit->text().toInt();
@@ -140,9 +138,19 @@ void ShortestWay::on_paint_Button_clicked()
 
     int x_dim = ui->x_dim_lineEdit->text().toInt();
     int y_dim = ui->y_dim_lineEdit->text().toInt();
-
     window->setBoundaries(x_bound_left, x_bound_right, y_bound_lower, y_bound_upper);
     window->setDimension(x_dim, y_dim);
+
+    int x_s = ui->x_start_lineEdit->text().toInt();
+    int y_s = ui->y_start_lineEdit->text().toInt();
+    int x_f = ui->x_finish_lineEdit->text().toInt();
+    int y_f = ui->y_finish_lineEdit->text().toInt();
+    //qDebug() << "startP: x: " << x_s << ", y: " << y_s;
+    //qDebug() << "finishP: x: " << x_f << ", y: " << y_f;
+    window->setWayPoints(QPoint(x_s, y_s), QPoint(x_f, y_f));
+
+    window->drawAll();
+    window->show();
 }
 
 

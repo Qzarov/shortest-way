@@ -50,14 +50,14 @@
             <item row="1" column="1">
              <widget class="QLineEdit" name="x_l_lineEdit">
               <property name="text">
-               <string>left</string>
+               <string>0</string>
               </property>
              </widget>
             </item>
             <item row="1" column="2">
              <widget class="QLineEdit" name="x_r_lineEdit">
               <property name="text">
-               <string>right</string>
+               <string>500</string>
               </property>
              </widget>
             </item>
@@ -76,14 +76,14 @@
             <item row="2" column="1">
              <widget class="QLineEdit" name="y_l_lineEdit">
               <property name="text">
-               <string>left</string>
+               <string>0</string>
               </property>
              </widget>
             </item>
             <item row="2" column="2">
              <widget class="QLineEdit" name="y_r_lineEdit">
               <property name="text">
-               <string>right</string>
+               <string>500</string>
               </property>
              </widget>
             </item>
@@ -118,7 +118,7 @@
             <item row="1" column="1">
              <widget class="QLineEdit" name="x_dim_lineEdit">
               <property name="text">
-               <string/>
+               <string>10</string>
               </property>
              </widget>
             </item>
@@ -137,7 +137,7 @@
             <item row="1" column="3">
              <widget class="QLineEdit" name="y_dim_lineEdit">
               <property name="text">
-               <string/>
+               <string>10</string>
               </property>
              </widget>
             </item>
@@ -168,7 +168,7 @@
             <item row="3" column="1">
              <widget class="QLineEdit" name="x_start_lineEdit">
               <property name="text">
-               <string/>
+               <string>0</string>
               </property>
              </widget>
             </item>
@@ -187,7 +187,7 @@
             <item row="3" column="3">
              <widget class="QLineEdit" name="y_start_lineEdit">
               <property name="text">
-               <string/>
+               <string>0</string>
               </property>
              </widget>
             </item>
@@ -218,7 +218,7 @@
             <item row="5" column="1">
              <widget class="QLineEdit" name="x_finish_lineEdit">
               <property name="text">
-               <string/>
+               <string>480</string>
               </property>
              </widget>
             </item>
@@ -237,7 +237,7 @@
             <item row="5" column="3">
              <widget class="QLineEdit" name="y_finish_lineEdit">
               <property name="text">
-               <string/>
+               <string>420</string>
               </property>
              </widget>
             </item>
@@ -463,7 +463,7 @@
      <x>0</x>
      <y>0</y>
      <width>689</width>
-     <height>21</height>
+     <height>17</height>
     </rect>
    </property>
   </widget>

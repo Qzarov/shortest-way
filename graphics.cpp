@@ -12,13 +12,7 @@ Graphics::Graphics(QVector<RestrictedArea> ar, QWidget *parent) :
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
 
-    scene->addText("Hello, world!");
-    scene->setSceneRect(0,0,500,500);
-
-    drawGrid();
-
-
-    printAreas();
+    configTools();
 
     QGraphicsView view(scene);
     view.show();
@@ -27,6 +21,24 @@ Graphics::Graphics(QVector<RestrictedArea> ar, QWidget *parent) :
 Graphics::~Graphics()
 {
     delete ui;
+}
+
+
+void Graphics::configTools()
+{
+    scene->setSceneRect(0,0,500,500);
+
+    pen_red.setColor(Qt::red);
+    pen_red.setWidth(3);
+
+    pen_black.setColor(Qt::black);
+    pen_black.setWidth(5);
+
+    pen_green.setColor(Qt::green);
+    pen_green.setWidth(5);
+
+    brush.setColor(Qt::red);
+    brush.setStyle(Qt::BrushStyle::Dense6Pattern);
 }
 
 
@@ -62,19 +74,41 @@ void Graphics::setDimension(int x_d, int y_d)
     y_dim = y_d;
 }
 
-void Graphics::printAreas()
+
+void Graphics::setWayPoints(QPoint s, QPoint f)
+{
+    startP = s;
+    finishP = f;
+}
+
+
+void Graphics::drawAreas()
 {
     for (int i = 0; i < areas.size(); ++i) {
         if (areas[i].getType() == AreaType::Circle) {
             QPoint p = areas[i].getPoints()[0];
             double r = areas[i].getRadius();
-            scene->addEllipse(p.rx(), p.ry(), r, r);
+            scene->addEllipse(p.rx()-r/2, p.ry()-r/2, r, r, pen_red, brush);
 
         } else if (areas[i].getType() == AreaType::Polygon) {
             QPolygon pol = QPolygon(areas[i].getPoints());
-            scene->addPolygon(pol);
+            scene->addPolygon(pol, pen_red, brush);
         }
-
-
     }
+}
+
+
+void Graphics::drawWayPoints()
+{
+    int r = 10;
+    scene->addEllipse(startP.rx()-r/2, startP.ry()-r/2, r, r, pen_green);
+    scene->addEllipse(finishP.rx()-r/2, finishP.ry()-r/2, r, r, pen_black);
+}
+
+
+void Graphics::drawAll()
+{
+    drawGrid();
+    drawWayPoints();
+    drawAreas();
 }

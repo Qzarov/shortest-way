@@ -17,12 +17,9 @@ class ShortestWay : public QMainWindow
 {
     Q_OBJECT
 
-    //friend void Graphics::printAreas();
-
 public:
     ShortestWay(QWidget *parent = nullptr);
     ~ShortestWay();
-
 
 private slots:
 
@@ -35,10 +32,8 @@ private slots:
 private:
     void setCenterVisibility(bool flag);
     void setNewPVisibility(bool flag);
-    //QVector<RestrictedArea> getAreas();
 
     Ui::ShortestWay *ui;
-
     QVector<RestrictedArea> areas;
 
     //Graphics

@@ -31,6 +31,12 @@ AreaType RestrictedArea::getType() { return type; }
 void RestrictedArea::setType(AreaType t) { type = t;}
 
 
+double RestrictedArea::getRadius()
+{
+    return radius;
+}
+
+
 void RestrictedArea::writeInDebugCircle()
 {
     qDebug() << "center: x:" << points[0].rx() << ", y: " << points[0].ry()
@@ -55,10 +61,4 @@ void RestrictedArea::writeInDebug()
         qDebug() << " polygon";
         writeInDebugPolygon();
     }
-}
-
-
-double RestrictedArea::getRadius()
-{
-    return radius;
 }
