@@ -18,7 +18,7 @@ RestrictedArea::RestrictedArea(QPoint p, float r)
 {
     type = AreaType::Circle;
     points.push_back(p);
-    radius = r;
+    radius = r*2;
 }
 
 
@@ -147,7 +147,16 @@ QVector<RestrictedArea> Graph::getAreas() { return areas; }
 
 bool Graph::isPointInCircle(QPoint p, int i)
 {
-
+    double r = areas[i].getRadius();
+    QPoint center = areas[i].getPoints()[0];
+    double dx = p.rx()-center.rx();
+    double dy = p.ry()-center.ry();
+    double distance = sqrt(dx*dx + dy*dy);
+    //qDebug() << "point: " << p.rx() << p.ry();
+    //qDebug() << "center: " << center.rx() << center.ry();
+    qDebug() << "distance: " << distance << ", r: " << r/2;
+    if (distance >= r/2) { return false; }
+    else { return true; }
 }
 
 
@@ -176,18 +185,14 @@ bool Graph::isPointInPolygon(QPoint p, int i)
 
 bool Graph::isPointRestricted(QPoint p)
 {
-    qDebug() << "isPointRestricted()!";
     bool flag = false;
-    qDebug() << "areas.size(): " << areas.size();
+    //qDebug() << "areas.size(): " << areas.size();
     for (int i = 0; i < areas.size(); ++i) {
-        qDebug() << "type: " << (int)areas[i].getType();
+        //qDebug() << "type: " << (int)areas[i].getType();
         if (areas[i].getType() == AreaType::Circle) {
             flag = isPointInCircle(p, i);
-            //qDebug() << "in circle:";
         } else if (areas[i].getType() == AreaType::Polygon) {
-            qDebug() << "im in polyg!!!";
             flag = isPointInPolygon(p, i);
-
         }
         qDebug() << "point: " << p.rx() << p.ry() << ", flag: " << flag;
         if (flag == true) { break; }
