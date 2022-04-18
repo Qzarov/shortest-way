@@ -63,11 +63,15 @@ void RestrictedArea::writeInDebug()
     }
 }
 
+int RestrictedArea::getNumOfPoints() { return points.size(); }
+
+
 // Graph
+
 
 Graph::Graph(){}
 
-void Graph::buildMatrix()
+void Graph::buildMatrix(QVector<int> restrP)
 {
     int nodes = nodes_x*nodes_y;
     for (int i = 0; i < nodes; ++i){
@@ -78,7 +82,7 @@ void Graph::buildMatrix()
             }
         }
     }
-    writeAdjacInDebug();
+    //writeAdjacInDebug();
 }
 
 
@@ -94,6 +98,20 @@ void Graph::writeAdjacInDebug()
         }
         qDebug() << "NEXT";
     }
+}
+
+
+void Graph::setWayPoints(QPoint s, QPoint f)
+{
+    startP = s;
+    finishP = f;
+}
+
+
+void Graph::setDimension(int x_dim, int y_dim)
+{
+    nodes_x = x_dim;
+    nodes_y = y_dim;
 }
 
 
@@ -125,3 +143,79 @@ void Graph::addPoint(QPoint p)
 
 size_t Graph::getAreasSize() { return areas.size(); }
 QVector<RestrictedArea> Graph::getAreas() { return areas; }
+
+
+bool Graph::isPointInCircle(QPoint p, int i)
+{
+
+}
+
+
+bool Graph::isPointInPolygon(QPoint p, int i)
+{
+    QVector<QPoint> points = areas[i].getPoints();
+
+    bool c = false;
+    for (int i = 0, j = points.size() - 1; i < points.size(); j = i++)
+    {
+      QPoint ppi = points[i];//polygon point i
+      QPoint ppj = points[j];//polygon point j
+      if ((
+        (ppi.ry() < ppj.ry()) && (ppi.ry() <= p.ry()) && (p.ry() <= ppj.ry()) &&
+        ((ppj.ry() - ppi.ry()) * (p.rx() - ppi.rx()) > (ppj.rx() - ppi.rx()) * (p.ry() - ppi.ry()))
+      ) || (
+        (ppi.ry() > ppj.ry()) && (ppj.ry() <= p.ry()) && (p.ry() <= ppi.ry()) &&
+        ((ppj.ry() - ppi.ry()) * (p.rx() - ppi.rx()) < (ppj.rx() - ppi.rx()) * (p.ry() - ppi.ry()))
+      )) {
+        c = !c;
+      }
+    }
+    return c;
+}
+
+
+bool Graph::isPointRestricted(QPoint p)
+{
+    qDebug() << "isPointRestricted()!";
+    bool flag = false;
+    qDebug() << "areas.size(): " << areas.size();
+    for (int i = 0; i < areas.size(); ++i) {
+        qDebug() << "type: " << (int)areas[i].getType();
+        if (areas[i].getType() == AreaType::Circle) {
+            flag = isPointInCircle(p, i);
+            //qDebug() << "in circle:";
+        } else if (areas[i].getType() == AreaType::Polygon) {
+            qDebug() << "im in polyg!!!";
+            flag = isPointInPolygon(p, i);
+
+        }
+        qDebug() << "point: " << p.rx() << p.ry() << ", flag: " << flag;
+        if (flag == true) { break; }
+    }
+    //qDebug() << "point: " << p.rx() << p.ry();
+
+    return flag;
+}
+
+
+QVector<int> Graph::getRestrictedPoints()
+{
+    qDebug() << "getRestrictedPoints()!";
+    QVector<int> restricted_points;
+    int scale = 50;
+
+    bool flag = false;
+    for (int i = 0; i < nodes_y; ++i) {
+        for (int j = 0; j < nodes_x; ++j) {
+            flag = isPointRestricted(QPoint(i * scale, j * scale));
+            //qDebug() << "point: " << i * scale << j * scale << ", flag: " << flag;
+            if (flag) {
+                restricted_points.push_back(i * nodes_x + j);
+            }
+        }
+    }
+
+
+
+    return restricted_points;
+}

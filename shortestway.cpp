@@ -133,10 +133,16 @@ void ShortestWay::on_paint_Button_clicked()
              ui->y_start_lineEdit->text().toInt());
     QPoint f(ui->x_finish_lineEdit->text().toInt(),
              ui->y_finish_lineEdit->text().toInt());
-    graph = Graph(x_dim, y_dim, s, f);
-    qDebug() << "Graph builded: " << x_dim << " " << y_dim
-             << ", start: " << s.rx() << s.ry()
-             << ", finish: " << f.rx() << f.ry();
+
+    graph.setDimension(x_dim, y_dim);
+    graph.setWayPoints(s, f);
+    QVector<int> vec = graph.getRestrictedPoints();
+    graph.buildMatrix(vec);
+
+
+    //qDebug() << "Graph builded: " << x_dim << " " << y_dim
+    //         << ", start: " << s.rx() << s.ry()
+    //         << ", finish: " << f.rx() << f.ry();
     window->setWayPoints(s, f);
 
     window->drawAll();

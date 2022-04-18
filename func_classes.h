@@ -28,6 +28,7 @@ public:
 
     AreaType getType();
     QVector<QPoint> getPoints();
+    int getNumOfPoints();
     double getRadius();
 
     // Debug
@@ -49,12 +50,9 @@ public:
     Graph();
     Graph(int n_x, int n_y, QPoint s, QPoint f) :
         nodes_x(n_x), nodes_y(n_y),
-        startP(s), finishP(f)
-    {
-        //getRestrictedPoints();
-        buildMatrix();
-    }
-    void setWayPoints();
+        startP(s), finishP(f) {}
+    void setWayPoints(QPoint s, QPoint f);
+    void setDimension(int x_dim, int y_dim);
 
     // Restricted Areas
     void addArea(RestrictedArea new_area);
@@ -62,10 +60,14 @@ public:
     size_t getAreasSize();
     QVector<RestrictedArea> getAreas();
 
+    QVector<int> getRestrictedPoints();
+    void buildMatrix(QVector<int> restrP);
 
 private:
-    //QVector<QPoint> getRestrictedPoints();
-    void buildMatrix();
+    bool isPointInCircle(QPoint p, int i);
+    bool isPointInPolygon(QPoint p, int i);
+    bool isPointRestricted(QPoint p);
+
 
     // Debug
     void writeAdjacInDebug();
