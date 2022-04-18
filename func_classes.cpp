@@ -95,3 +95,33 @@ void Graph::writeAdjacInDebug()
         qDebug() << "NEXT";
     }
 }
+
+
+void Graph::addArea(RestrictedArea new_area)
+{
+    areas.push_back(new_area);
+}
+
+
+void Graph::addPoint(QPoint p)
+{
+    bool is_new_polyg = true;
+
+    if (areas.size() == 0) {}
+    else if (areas[areas.size() - 1].getType() == AreaType::Circle) {}
+    else { is_new_polyg = false; }
+
+    if (is_new_polyg) {
+        RestrictedArea new_area(AreaType::Polygon);
+        new_area.addPoint(p);
+        areas.push_back(new_area);
+        //new_area.writeInDebug();
+    } else {
+        areas[areas.size() - 1].addPoint(p);
+        //areas[areas.size() - 1].writeInDebug();
+    }
+}
+
+
+size_t Graph::getAreasSize() { return areas.size(); }
+QVector<RestrictedArea> Graph::getAreas() { return areas; }

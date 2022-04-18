@@ -34,7 +34,6 @@ private:
     void setNewPVisibility(bool flag);
 
     Ui::ShortestWay *ui;
-    QVector<RestrictedArea> areas;
     Graph graph;
 
     //Graphics

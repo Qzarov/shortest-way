@@ -88,7 +88,8 @@ void ShortestWay::on_add_circle_Button_clicked()
     double r = ui->r_center_lineEdit->text().toFloat();
 
     RestrictedArea new_area(QPoint(x, y), r);
-    areas.push_back(new_area);
+    graph.addArea(new_area);
+    //areas.push_back(new_area);
     new_area.writeInDebug();
     new_area.print();
 
@@ -100,36 +101,23 @@ void ShortestWay::on_add_point_Button_clicked()
     int x = ui->x_newP_lineEdit->text().toInt();
     int y = ui->y_newP_lineEdit->text().toInt();
 
-    QPoint new_p(x, y);
-
-    bool new_polyg = true;
-
-    if (areas.size() == 0) {}
-    else if (areas[areas.size() - 1].getType() == AreaType::Circle) {}
-    else { new_polyg = false; }
-
-    if (new_polyg) {
-        RestrictedArea new_area(AreaType::Polygon);
-        new_area.addPoint(new_p);
-        areas.push_back(new_area);
-        new_area.writeInDebug();
-    } else {
-        areas[areas.size() - 1].addPoint(new_p);
-        areas[areas.size() - 1].writeInDebug();
-    }
+    //QPoint new_p(x, y);
+    graph.addPoint(QPoint(x, y));
 }
 
 
 void ShortestWay::on_add_Polygon_Button_clicked()
 {
     // points?
-    areas.push_back(RestrictedArea(AreaType::Polygon));
+    graph.addArea(RestrictedArea(AreaType::Polygon));
+    //areas.push_back(RestrictedArea(AreaType::Polygon));
 }
 
 
 void ShortestWay::on_paint_Button_clicked()
 {
-    window = new Graphics(areas, this);   
+    //window = new Graphics(areas, this);
+    window = new Graphics(graph.getAreas(), this);
 
     int x_bound_left = ui->x_l_lineEdit->text().toInt();
     int x_bound_right = ui->x_r_lineEdit->text().toInt();

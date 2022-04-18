@@ -51,12 +51,20 @@ public:
         nodes_x(n_x), nodes_y(n_y),
         startP(s), finishP(f)
     {
+        //getRestrictedPoints();
         buildMatrix();
     }
     void setWayPoints();
 
+    // Restricted Areas
+    void addArea(RestrictedArea new_area);
+    void addPoint(QPoint p);
+    size_t getAreasSize();
+    QVector<RestrictedArea> getAreas();
+
 
 private:
+    //QVector<QPoint> getRestrictedPoints();
     void buildMatrix();
 
     // Debug
@@ -65,6 +73,8 @@ private:
     int nodes_x, nodes_y;
     QPoint startP;
     QPoint finishP;
+
+    QVector<RestrictedArea> areas;
     QMap <int, QVector<int>> adjac;
 };
 
