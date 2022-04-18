@@ -1,6 +1,6 @@
 #include "func_classes.h"
 
-//RestrictedArea::RestrictedArea(){}
+// RestrictedArea
 
 void RestrictedArea::addPoint(QPoint p)
 {
@@ -60,5 +60,38 @@ void RestrictedArea::writeInDebug()
     } else if (type == AreaType::Polygon) {
         qDebug() << " polygon";
         writeInDebugPolygon();
+    }
+}
+
+// Graph
+
+Graph::Graph(){}
+
+void Graph::buildMatrix()
+{
+    int nodes = nodes_x*nodes_y;
+    for (int i = 0; i < nodes; ++i){
+        for (int j = 0; j < nodes; ++j) {
+            if (abs(i - j) == 1 ||
+                abs(i - j) == nodes_x) {
+                adjac[i].push_back(j);
+            }
+        }
+    }
+    writeAdjacInDebug();
+}
+
+
+void Graph::writeAdjacInDebug()
+{
+    qDebug() << "nodes_x: " << nodes_x << ", nodes_y: " << nodes_y;
+    QMapIterator it(adjac);
+    while (it.hasNext()){
+        it.next();
+        qDebug() << it.key() << " : ";
+        for (int i = 0; i < it.value().size(); ++i) {
+            qDebug() << it.value()[i] << " ";
+        }
+        qDebug() << "NEXT";
     }
 }

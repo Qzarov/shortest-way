@@ -35,6 +35,7 @@ private:
 
     Ui::ShortestWay *ui;
     QVector<RestrictedArea> areas;
+    Graph graph;
 
     //Graphics
     Graphics *window;

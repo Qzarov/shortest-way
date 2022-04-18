@@ -30,9 +30,11 @@ public:
     QVector<QPoint> getPoints();
     double getRadius();
 
+    // Debug
     void writeInDebug();
 
 private:
+    // Debug
     void writeInDebugCircle();
     void writeInDebugPolygon();
 
@@ -41,9 +43,29 @@ private:
     double radius;
 };
 
-class Grapf
+class Graph
 {
+public:
+    Graph();
+    Graph(int n_x, int n_y, QPoint s, QPoint f) :
+        nodes_x(n_x), nodes_y(n_y),
+        startP(s), finishP(f)
+    {
+        buildMatrix();
+    }
+    void setWayPoints();
 
+
+private:
+    void buildMatrix();
+
+    // Debug
+    void writeAdjacInDebug();
+
+    int nodes_x, nodes_y;
+    QPoint startP;
+    QPoint finishP;
+    QMap <int, QVector<int>> adjac;
 };
 
 #endif // CLASSES_H

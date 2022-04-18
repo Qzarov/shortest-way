@@ -141,13 +141,15 @@ void ShortestWay::on_paint_Button_clicked()
     window->setBoundaries(x_bound_left, x_bound_right, y_bound_lower, y_bound_upper);
     window->setDimension(x_dim, y_dim);
 
-    int x_s = ui->x_start_lineEdit->text().toInt();
-    int y_s = ui->y_start_lineEdit->text().toInt();
-    int x_f = ui->x_finish_lineEdit->text().toInt();
-    int y_f = ui->y_finish_lineEdit->text().toInt();
-    //qDebug() << "startP: x: " << x_s << ", y: " << y_s;
-    //qDebug() << "finishP: x: " << x_f << ", y: " << y_f;
-    window->setWayPoints(QPoint(x_s, y_s), QPoint(x_f, y_f));
+    QPoint s(ui->x_start_lineEdit->text().toInt(),
+             ui->y_start_lineEdit->text().toInt());
+    QPoint f(ui->x_finish_lineEdit->text().toInt(),
+             ui->y_finish_lineEdit->text().toInt());
+    graph = Graph(x_dim, y_dim, s, f);
+    qDebug() << "Graph builded: " << x_dim << " " << y_dim
+             << ", start: " << s.rx() << s.ry()
+             << ", finish: " << f.rx() << f.ry();
+    window->setWayPoints(s, f);
 
     window->drawAll();
     window->show();
