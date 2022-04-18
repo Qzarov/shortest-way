@@ -75,14 +75,53 @@ void Graph::buildMatrix(QVector<int> restrP)
 {
     int nodes = nodes_x*nodes_y;
     for (int i = 0; i < nodes; ++i){
+        if (restrP.contains(i)) {
+            qDebug() << i << "skipped i";
+            continue;
+        }
         for (int j = 0; j < nodes; ++j) {
+            //int numP = nodes_x * i + j;
+            if (restrP.contains(j)) {
+                qDebug() << j << "skipped j";
+                continue;
+            }
+
             if (abs(i - j) == 1 ||
                 abs(i - j) == nodes_x) {
                 adjac[i].push_back(j);
             }
         }
     }
-    //writeAdjacInDebug();
+    writeAdjacInDebug();
+}
+
+
+QVector<int> Graph::getRestrictedPoints()
+{
+    qDebug() << "getRestrictedPoints()!";
+    QVector<int> restricted_points;
+    int scale = 50;
+
+    bool flag = false;
+    for (int i = 0; i < nodes_y; ++i) {
+        for (int j = 0; j < nodes_x; ++j) {
+            flag = isPointRestricted(QPoint(i * scale, j * scale));
+            //qDebug() << "point: " << i * scale << j * scale << ", flag: " << flag;
+            if (flag) {
+                restricted_points.push_back(i * nodes_x + j);
+            }
+        }
+    }
+
+    qDebug() << "Restricted points:";
+    for (int i = 0; i < restricted_points.size(); ++i)
+    {
+        qDebug() << restricted_points[i] <<
+                    restricted_points[i] / nodes_x * scale <<
+                    restricted_points[i] % nodes_x * scale;
+    }
+
+    return restricted_points;
 }
 
 
@@ -92,11 +131,7 @@ void Graph::writeAdjacInDebug()
     QMapIterator it(adjac);
     while (it.hasNext()){
         it.next();
-        qDebug() << it.key() << " : ";
-        for (int i = 0; i < it.value().size(); ++i) {
-            qDebug() << it.value()[i] << " ";
-        }
-        qDebug() << "NEXT";
+        qDebug() << it.key() << " : " << it.value();
     }
 }
 
@@ -152,9 +187,7 @@ bool Graph::isPointInCircle(QPoint p, int i)
     double dx = p.rx()-center.rx();
     double dy = p.ry()-center.ry();
     double distance = sqrt(dx*dx + dy*dy);
-    //qDebug() << "point: " << p.rx() << p.ry();
-    //qDebug() << "center: " << center.rx() << center.ry();
-    qDebug() << "distance: " << distance << ", r: " << r/2;
+
     if (distance >= r/2) { return false; }
     else { return true; }
 }
@@ -186,41 +219,16 @@ bool Graph::isPointInPolygon(QPoint p, int i)
 bool Graph::isPointRestricted(QPoint p)
 {
     bool flag = false;
-    //qDebug() << "areas.size(): " << areas.size();
     for (int i = 0; i < areas.size(); ++i) {
-        //qDebug() << "type: " << (int)areas[i].getType();
         if (areas[i].getType() == AreaType::Circle) {
             flag = isPointInCircle(p, i);
         } else if (areas[i].getType() == AreaType::Polygon) {
             flag = isPointInPolygon(p, i);
         }
-        qDebug() << "point: " << p.rx() << p.ry() << ", flag: " << flag;
         if (flag == true) { break; }
     }
-    //qDebug() << "point: " << p.rx() << p.ry();
 
     return flag;
 }
 
 
-QVector<int> Graph::getRestrictedPoints()
-{
-    qDebug() << "getRestrictedPoints()!";
-    QVector<int> restricted_points;
-    int scale = 50;
-
-    bool flag = false;
-    for (int i = 0; i < nodes_y; ++i) {
-        for (int j = 0; j < nodes_x; ++j) {
-            flag = isPointRestricted(QPoint(i * scale, j * scale));
-            //qDebug() << "point: " << i * scale << j * scale << ", flag: " << flag;
-            if (flag) {
-                restricted_points.push_back(i * nodes_x + j);
-            }
-        }
-    }
-
-
-
-    return restricted_points;
-}
