@@ -32,12 +32,14 @@ public:
     void setWayPoints(QPoint s, QPoint f);
 
     void drawAll();
+    void drawWay(QVector<QPoint> vec);
 
 private:
     void configTools();
     void drawGrid();
-    void drawWayPoints();
+    void drawPoints(QVector<QPoint> vec);
     void drawAreas();
+
 
     Ui::Graphics *ui;
     QVector<RestrictedArea> areas;

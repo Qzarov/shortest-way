@@ -138,7 +138,7 @@ void ShortestWay::on_paint_Button_clicked()
     graph.setWayPoints(s, f);
     QVector<int> vec = graph.getRestrictedPoints();
     graph.buildMatrix(vec);
-
+    graph.breadthFirstSearch();
 
     //qDebug() << "Graph builded: " << x_dim << " " << y_dim
     //         << ", start: " << s.rx() << s.ry()
@@ -146,6 +146,7 @@ void ShortestWay::on_paint_Button_clicked()
     window->setWayPoints(s, f);
 
     window->drawAll();
+    window->drawWay(graph.getWay());
     window->show();
 }
 

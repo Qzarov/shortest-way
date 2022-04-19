@@ -40,7 +40,7 @@ double RestrictedArea::getRadius()
 void RestrictedArea::writeInDebugCircle()
 {
     qDebug() << "center: x:" << points[0].rx() << ", y: " << points[0].ry()
-             << ", r: " << radius;
+             << ", r: " << radius/2;
 }
 
 void RestrictedArea::writeInDebugPolygon()

@@ -4,6 +4,7 @@
 #include <QVector>
 #include <QDebug>
 #include <QPoint>
+#include <QQueue>
 
 enum class AreaType {
     Circle,
@@ -44,6 +45,10 @@ private:
     double radius;
 };
 
+
+// Graph
+
+
 class Graph
 {
 public:
@@ -61,14 +66,19 @@ public:
     QVector<RestrictedArea> getAreas();
 
     QVector<int> getRestrictedPoints();
+    QVector<QPoint> getWay();
     void buildMatrix(QVector<int> restrP);
+    void breadthFirstSearch();
+
+
 
 private:
     bool isPointInCircle(QPoint p, int i);
     bool isPointInPolygon(QPoint p, int i);
     bool isPointRestricted(QPoint p);
-
-
+    int getPointNum(QPoint p);
+    QPoint getQPointFromNum(int p);
+    void buildWay(int point_num);
     // Debug
     void writeAdjacInDebug();
 
@@ -78,6 +88,9 @@ private:
 
     QVector<RestrictedArea> areas;
     QMap <int, QVector<int>> adjac;
+    QMap<int, int> ancestor;
+    int scale = 50;
+    QVector<int> way;
 };
 
 #endif // CLASSES_H

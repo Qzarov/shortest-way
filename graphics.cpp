@@ -98,7 +98,7 @@ void Graphics::drawAreas()
 }
 
 
-void Graphics::drawWayPoints()
+void Graphics::drawPoints(QVector<QPoint> vec)
 {
     int r = 10;
     scene->addEllipse(startP.rx()-r/2, startP.ry()-r/2, r, r, pen_green);
@@ -109,6 +109,6 @@ void Graphics::drawWayPoints()
 void Graphics::drawAll()
 {
     drawGrid();
-    drawWayPoints();
+    drawPoints({startP, finishP});
     drawAreas();
 }
