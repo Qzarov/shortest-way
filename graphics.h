@@ -39,7 +39,7 @@ private:
     void drawGrid();
     void drawPoints(QVector<QPoint> vec);
     void drawAreas();
-
+    int getPointNum(QPoint p);
 
     Ui::Graphics *ui;
     QVector<RestrictedArea> areas;

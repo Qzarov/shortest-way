@@ -4,19 +4,15 @@ Graph::Graph(){}
 
 void Graph::buildMatrix(QVector<int> restrP)
 {
+    //adjac = QMap <int, QVector<int>>();
     int nodes = nodes_x*nodes_y;
     for (int i = 0; i < nodes; ++i){
-        if (restrP.contains(i)) {
-            //qDebug() << i << "skipped i";
-            continue;
-        }
+        if (restrP.contains(i)) { continue; }
         for (int j = 0; j < nodes; ++j) {
-            //int numP = nodes_x * i + j;
             if (restrP.contains(j) ||
                (((i+1) % nodes_y == 0) && (j % nodes_y == 0)) ||
                (((j+1) % nodes_y == 0) && (i % nodes_y == 0))
                     ) {
-                //qDebug() << j << "skipped j";
                 continue;
             }
 
@@ -32,9 +28,7 @@ void Graph::buildMatrix(QVector<int> restrP)
 
 QVector<int> Graph::getRestrictedPoints()
 {
-    //qDebug() << "getRestrictedPoints()!";
     QVector<int> restricted_points;
-    int scale = 50;
 
     bool flag = false;
     for (int i = 0; i < nodes_y; ++i) {
@@ -42,11 +36,12 @@ QVector<int> Graph::getRestrictedPoints()
             flag = isPointRestricted(QPoint(i * scale, j * scale));
             //qDebug() << "point: " << i * scale << j * scale << ", flag: " << flag;
             if (flag) {
-                restricted_points.push_back(i * nodes_x + j);
+                //restricted_points.push_back(i * nodes_x + j);
+                restricted_points.push_back(j * nodes_x + i);
             }
         }
     }
-    /*
+
     qDebug() << "Restricted points:";
     for (int i = 0; i < restricted_points.size(); ++i)
     {
@@ -54,7 +49,7 @@ QVector<int> Graph::getRestrictedPoints()
                     restricted_points[i] / nodes_x * scale <<
                     restricted_points[i] % nodes_x * scale;
     }
-    */
+
     return restricted_points;
 }
 
@@ -122,7 +117,7 @@ bool Graph::isPointInCircle(QPoint p, int i)
     double dy = p.ry()-center.ry();
     double distance = sqrt(dx*dx + dy*dy);
 
-    if (distance >= r/2) { return false; }
+    if (distance > r/2) { return false; }
     else { return true; }
 }
 
@@ -174,24 +169,20 @@ int Graph::getPointNum(QPoint p)
 
 void Graph::breadthFirstSearch()
 {
-    qDebug() << "breadthFirstSearch!";
     int nodes = nodes_x*nodes_y;
 
+    ancestor.clear();
     QVector<bool> passed(nodes, false);;
     QVector<int> distance(nodes, 10000);
 
     int start = getPointNum(startP);
-    //qDebug() << "start:" << start;
-    //int start = 0;
     passed[start] = true;
     ancestor[start] = start;
     distance[start] = 0;
-    qDebug() << "start:" << start;
     QQueue<int> queue;
     queue.enqueue(start);
 
     while(!queue.isEmpty()) {
-        //int u = queue.front();
         int u = queue.head();
         queue.dequeue();
         for (int i = 0; i < adjac[u].size(); ++i) {
@@ -201,9 +192,9 @@ void Graph::breadthFirstSearch()
                 ancestor[v] = u;
                 distance[v] = distance[u] + 1;
                 queue.enqueue(v);
-                qDebug() << "point:" << v <<
-                            " ancestor:" << u <<
-                            " distance:" << distance[v];
+                //qDebug() << "point:" << v <<
+                //            " ancestor:" << u <<
+                //            " distance:" << distance[v];
             }
         }
     }
@@ -225,5 +216,17 @@ void Graph::buildWay(int point_num)
 
 QPoint Graph::getQPointFromNum(int p)
 {
-    return QPoint();
+    //return QPoint(p / nodes_x * scale, p % nodes_x * scale);
+    return QPoint(p % nodes_x * scale, p / nodes_x * scale);
+}
+
+
+QVector<QPoint> Graph::getWay()
+{
+    QVector<QPoint> res;
+
+    for (int i = 0; i < way.size(); ++i) {
+        res.push_back(getQPointFromNum(way[i]));
+    }
+    return res;
 }

@@ -39,7 +39,5 @@ private:
     //Graphics
     Graphics *window;
 
-
-
 };
 #endif // SHORTESTWAY_H

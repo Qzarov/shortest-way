@@ -44,8 +44,12 @@ void Graphics::configTools()
 
 void Graphics::drawGrid()
 {
+    QGraphicsTextItem* textItem;
     int x1=0,y1=0,x2=0,y2=500;
     for (int i = 0; i <= 500; i+=50) {
+        textItem = new QGraphicsTextItem(QString::number(x1));
+        textItem->setPos(x1, 0);
+        scene->addItem(textItem);
         scene->addLine(x1,y1,x2,y2);
         x1+=50;
         x2+=50;
@@ -53,6 +57,9 @@ void Graphics::drawGrid()
 
     x1=0,y1=0,x2=500,y2=0;
     for (int i = 0; i <= 500; i+=50) {
+        textItem = new QGraphicsTextItem(QString::number(y1));
+        textItem->setPos(0, y1);
+        scene->addItem(textItem);
         scene->addLine(x1,y1,x2,y2);
         y1+=50;
         y2+=50;
@@ -100,9 +107,23 @@ void Graphics::drawAreas()
 
 void Graphics::drawPoints(QVector<QPoint> vec)
 {
-    int r = 10;
-    scene->addEllipse(startP.rx()-r/2, startP.ry()-r/2, r, r, pen_green);
-    scene->addEllipse(finishP.rx()-r/2, finishP.ry()-r/2, r, r, pen_black);
+    QGraphicsTextItem* textItem;
+    int r = 5;
+
+    for (int i = 0; i < vec.size(); ++i) {
+        scene->addEllipse(vec[i].rx()-r/2, vec[i].ry()-r/2,
+                          r, r, pen_green);
+        int num = getPointNum(vec[i]);
+        textItem = new QGraphicsTextItem(QString::number(num));
+        textItem->setPos(vec[i].rx(), vec[i].ry()-20);
+        scene->addItem(textItem);
+    }
+}
+
+
+void Graphics::drawWay(QVector<QPoint> vec)
+{
+    drawPoints(vec);
 }
 
 
@@ -111,4 +132,11 @@ void Graphics::drawAll()
     drawGrid();
     drawPoints({startP, finishP});
     drawAreas();
+}
+
+
+int Graphics::getPointNum(QPoint p)
+{
+    int scale = 50;
+    return (p.rx() / scale) + (p.ry() / scale) * x_dim;
 }

@@ -70,8 +70,6 @@ public:
     void buildMatrix(QVector<int> restrP);
     void breadthFirstSearch();
 
-
-
 private:
     bool isPointInCircle(QPoint p, int i);
     bool isPointInPolygon(QPoint p, int i);
@@ -79,7 +77,6 @@ private:
     int getPointNum(QPoint p);
     QPoint getQPointFromNum(int p);
     void buildWay(int point_num);
-    // Debug
     void writeAdjacInDebug();
 
     int nodes_x, nodes_y;
