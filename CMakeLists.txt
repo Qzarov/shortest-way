@@ -16,7 +16,8 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
-        func_classes.cpp
+        restrictedarea.cpp
+        graph.cpp
         shortestway.cpp
         graphics.cpp
 
