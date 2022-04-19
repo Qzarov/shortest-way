@@ -34,14 +34,12 @@ QVector<int> Graph::getRestrictedPoints()
     for (int i = 0; i < nodes_y; ++i) {
         for (int j = 0; j < nodes_x; ++j) {
             flag = isPointRestricted(QPoint(i * scale, j * scale));
-            //qDebug() << "point: " << i * scale << j * scale << ", flag: " << flag;
             if (flag) {
-                //restricted_points.push_back(i * nodes_x + j);
                 restricted_points.push_back(j * nodes_x + i);
             }
         }
     }
-
+    /*
     qDebug() << "Restricted points:";
     for (int i = 0; i < restricted_points.size(); ++i)
     {
@@ -49,7 +47,7 @@ QVector<int> Graph::getRestrictedPoints()
                     restricted_points[i] / nodes_x * scale <<
                     restricted_points[i] % nodes_x * scale;
     }
-
+    */
     return restricted_points;
 }
 
@@ -192,9 +190,6 @@ void Graph::breadthFirstSearch()
                 ancestor[v] = u;
                 distance[v] = distance[u] + 1;
                 queue.enqueue(v);
-                //qDebug() << "point:" << v <<
-                //            " ancestor:" << u <<
-                //            " distance:" << distance[v];
             }
         }
     }
@@ -217,7 +212,6 @@ void Graph::buildWay(int point_num)
 
 QPoint Graph::getQPointFromNum(int p)
 {
-    //return QPoint(p / nodes_x * scale, p % nodes_x * scale);
     return QPoint(p % nodes_x * scale, p / nodes_x * scale);
 }
 

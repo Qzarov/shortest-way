@@ -2,7 +2,6 @@
 #include "ui_graphics.h"
 
 Graphics::Graphics(QVector<RestrictedArea> ar, QWidget *parent) :
-//Graphics::Graphics(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Graphics)
 {
@@ -123,7 +122,18 @@ void Graphics::drawPoints(QVector<QPoint> vec)
 
 void Graphics::drawWay(QVector<QPoint> vec)
 {
-    drawPoints(vec);
+    if (vec.size() > 2){
+        drawPoints(vec);
+    } else {
+        QGraphicsTextItem* textItem;
+        textItem = new QGraphicsTextItem("NO WAY!");
+        textItem->setPos(250, 250);
+        QFont font = QFont("Times", 20, QFont::Bold);
+        textItem->setFont(font);
+        textItem->setDefaultTextColor(Qt::red);
+        scene->addItem(textItem);
+    }
+
 }
 
 

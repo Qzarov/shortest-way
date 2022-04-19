@@ -140,9 +140,6 @@ void ShortestWay::on_paint_Button_clicked()
     graph.buildMatrix(vec);
     graph.breadthFirstSearch();
 
-    //qDebug() << "Graph builded: " << x_dim << " " << y_dim
-    //         << ", start: " << s.rx() << s.ry()
-    //         << ", finish: " << f.rx() << f.ry();
     window->setWayPoints(s, f);
 
     window->drawAll();
