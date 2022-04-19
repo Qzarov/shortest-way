@@ -4,7 +4,7 @@ Graph::Graph(){}
 
 void Graph::buildMatrix(QVector<int> restrP)
 {
-    //adjac = QMap <int, QVector<int>>();
+    adjac.clear();
     int nodes = nodes_x*nodes_y;
     for (int i = 0; i < nodes; ++i){
         if (restrP.contains(i)) { continue; }
@@ -201,6 +201,7 @@ void Graph::breadthFirstSearch()
 
     int finish = getPointNum(finishP);
     qDebug() << "DA WEI to " << finish;
+    way.clear();
     buildWay(finish);
     qDebug() << way;
 }
