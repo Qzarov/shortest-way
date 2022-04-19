@@ -14,19 +14,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
+include_directories("classes")
+include_directories("ui")
+
 set(PROJECT_SOURCES
         main.cpp
-        restrictedarea.cpp
-        graph.cpp
-        shortestway.cpp
-        graphics.cpp
+        classes/restrictedarea.cpp
+        classes/graph.cpp
+        ui/shortestway.cpp
+        ui/graphics.cpp
 
-        func_classes.h
-        shortestway.h
-        graphics.h
+        classes/func_classes.h
+        ui/shortestway.h
+        ui/graphics.h
 
-        shortestway.ui
-        graphics.ui
+        ui/shortestway.ui
+        ui/graphics.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
